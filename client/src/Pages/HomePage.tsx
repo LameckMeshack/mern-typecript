@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { sampleProducts } from '../data'
+import { sampleProducts } from '../../../backend/src/data'
 import { Col, Row } from 'react-bootstrap'
 
 export default function HomePage() {
