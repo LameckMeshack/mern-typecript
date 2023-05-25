@@ -1,23 +1,38 @@
-import "./App.css";
+import { Col, Container, Nav, Navbar, Row } from "react-bootstrap";
 import { sampleProducts } from "./data";
 
 function App() {
   return (
     <>
-      <div>
-        <header>TS amazone</header>
+      <div className="d-flex flex-column vh-100">
+        <header>
+          <Navbar bg="dark" variant="dark" expand='lg'>
+            <Container>
+              <Navbar.Brand>You Sell</Navbar.Brand>
+            </Container>
+            <Nav>
+              <Nav.Link href="/cart">Cart</Nav.Link>
+              <Nav.Link href="/login">Login</Nav.Link>
+            </Nav>
+          </Navbar>
+        </header>
         <main>
-          <ul>
+          <Container className="mt-3">
+
+          <Row>
             {sampleProducts.map((product) => (
-              <li key={product.slug}>
+              <Col key={product.slug}sm={6} md={4} lg={3} >
                 <img src={product.image} alt={product.name}  className="product-image"/>
                 <h2>{product.name}</h2>
                 <p>{product.price}</p>
-              </li>
+              </Col>
             ))}
-          </ul>
+          </Row>
+          </Container>
         </main>
-        <footer>footer</footer>
+        <footer>
+          <div className="text-center">All rights reserved &copy; 2023</div>
+        </footer>
       </div>
     </>
   );
