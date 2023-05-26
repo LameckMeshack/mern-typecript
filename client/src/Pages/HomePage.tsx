@@ -7,6 +7,7 @@ import axios from "axios";
 import { Product } from "../types/Product";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
+import ProductItem from "../components/ProductItem";
 
 export default function HomePage() {
   type State = { products: Product[]; loading: boolean; error: string };
@@ -60,15 +61,7 @@ export default function HomePage() {
     <Row>
       {products.map((product) => (
         <Col key={product.slug} sm={6} md={4} lg={3}>
-          <Link to={`/product/${product.slug}`}>
-            <img
-              src={product.image}
-              alt={product.name}
-              className="product-image"
-            />
-            <h2>{product.name}</h2>
-            <p>{product.price}</p>
-          </Link>
+          <ProductItem product={product} />
         </Col>
       ))}
     </Row>
