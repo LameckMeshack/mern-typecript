@@ -12,9 +12,8 @@ import App from "./App.tsx";
 import "./index.css";
 import HomePage from "./Pages/HomePage.tsx";
 import ProductPage from "./Pages/ProductPage.tsx";
-import axios from "axios";
-
-axios.defaults.baseURL = "http://localhost:5000";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,10 +24,15 @@ const router = createBrowserRouter(
   )
 );
 
+const queryCLient = new QueryClient();
+
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <HelmetProvider>
-      <RouterProvider router={router} />
+      <QueryClientProvider client={queryCLient}>
+        <RouterProvider router={router} />
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
     </HelmetProvider>
   </React.StrictMode>
 );
