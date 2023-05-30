@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-import { sampleProducts } from "./data";
+import { productRouter } from "./routers/ProductRouter";
 
 dotenv.config();
 //mongo_uri from .env file for mongo docker
@@ -25,19 +25,14 @@ app.use(
     })
 );
 
-app.get("/api/products", (req: Request, res: Response) => {
-    res.json(sampleProducts);
-});
+app.use(
+    cors({
+        credentials: true,
+        origin: "http://localhost:3000",
+    })
+)
 
-app.get("/api/products/:slug", (req: Request, res: Response) => {
-    const product = sampleProducts.find((x) => x.slug === req.params.slug);
-    if (product) {
-        res.json(product);
-    } else {
-        res.status(404).json({ message: "Product not found" });
-    }
-});
-
+app.use('/api/products', productRouter);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
