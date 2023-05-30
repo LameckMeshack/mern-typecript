@@ -1,6 +1,20 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
+import dotenv from "dotenv";
+import mongoose from "mongoose";
 import { sampleProducts } from "./data";
+
+dotenv.config();
+//mongo_uri from .env file for mongo docker
+const mongo_uri = process.env.MONGO_URI || "mongodb://localhost/ecommerce";
+mongoose.set('strictQuery', true);
+
+mongoose.connect(mongo_uri)
+    .then(() => {
+        console.log("Connected to mongodb");
+    }).catch((error) => {
+        console.log(error.reason);
+    });
 
 const app = express();
 
