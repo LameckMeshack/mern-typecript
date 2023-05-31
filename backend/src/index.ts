@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import { productRouter } from "./routers/ProductRouter";
+import { seedRouter } from "./routers/seedRouter";
 
 dotenv.config();
 //mongo_uri from .env file for mongo docker
@@ -22,18 +23,13 @@ const app = express();
 app.use(
     cors({
         credentials: true,
-        origin: "http://localhost:5173",
+        origin: "http://localhost:5173" || "http://localhost:3000",
     })
 );
-
-app.use(
-    cors({
-        credentials: true,
-        origin: "http://localhost:3000",
-    })
-)
+app.use(express.json());
 
 app.use('/api/products', productRouter);
+app.use('/api/seed', seedRouter);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
