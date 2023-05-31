@@ -14,7 +14,7 @@ services:
     depends_on:
       - mongodb
 
-  frontend:
+  client:
     build:
       context: ./client
       dockerfile: Dockerfile
