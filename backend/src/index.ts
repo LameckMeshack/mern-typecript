@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import { productRouter } from "./routers/ProductRouter";
 import { seedRouter } from "./routers/seedRouter";
+import { userRouter } from "./routers/userRouter";
 
 dotenv.config();
 //mongo_uri from .env file for mongo docker
@@ -27,8 +28,10 @@ app.use(
     })
 );
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/products', productRouter);
+app.use('/api/users', userRouter);
 app.use('/api/seed', seedRouter);
 
 const port = process.env.PORT || 5000;
