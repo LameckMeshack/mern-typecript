@@ -1,32 +1,25 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { Helmet } from "react-helmet-async";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useSignupMutation } from "../hooks/userHooks";
 import { Store } from "../Store";
 import { ApiError } from "../types/ApiError";
 import { getError } from "../utils";
+import { useRedirectAuth } from "../hooks/useRedirectAuth";
 
 export default function SignupPage() {
   const navigate = useNavigate();
-  const { search } = useLocation();
-  const redirectInUrl = new URLSearchParams(search).get("redirect");
-  const redirect = redirectInUrl ? redirectInUrl : "/";
+
+  useRedirectAuth();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const { state, dispatch } = useContext(Store);
-  const { userInfo } = state;
-
-  useEffect(() => {
-    if (userInfo) {
-      navigate(redirect);
-    }
-  }, [navigate, redirect, userInfo]);
+  const { dispatch } = useContext(Store);
 
   const { mutateAsync: signup, isLoading } = useSignupMutation();
 
@@ -44,7 +37,7 @@ export default function SignupPage() {
       });
       dispatch({ type: "USER_SIGNIN", payload: data });
       localStorage.setItem("userInfo", JSON.stringify(data));
-      navigate(redirect);
+      navigate("/");
     } catch (err) {
       toast.error(getError(err as ApiError));
     }
@@ -95,7 +88,7 @@ export default function SignupPage() {
 
         <div className="mb-3">
           Already have an account?{" "}
-          <Link to={`/signin?redirect=${redirect}`}>Sign In</Link>
+          <Link to={`/signin`}>Sign In</Link>
         </div>
       </Form>
     </Container>
