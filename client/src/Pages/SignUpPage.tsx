@@ -8,6 +8,7 @@ import { Store } from "../Store";
 import { ApiError } from "../types/ApiError";
 import { getError } from "../utils";
 import { useRedirectAuth } from "../hooks/useRedirectAuth";
+import LoadingBox from "../components/LoadingBox";
 
 export default function SignupPage() {
   const navigate = useNavigate();
@@ -42,6 +43,7 @@ export default function SignupPage() {
       toast.error(getError(err as ApiError));
     }
   };
+  if (isLoading) return <LoadingBox />;
 
   return (
     <Container className="small-container">
@@ -87,8 +89,7 @@ export default function SignupPage() {
         </div>
 
         <div className="mb-3">
-          Already have an account?{" "}
-          <Link to={`/signin`}>Sign In</Link>
+          Already have an account? <Link to={`/signin`}>Sign In</Link>
         </div>
       </Form>
     </Container>
