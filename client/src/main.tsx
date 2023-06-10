@@ -18,6 +18,8 @@ import { StoreProvider } from "./Store.tsx";
 import CartPage from "./Pages/CartPage.tsx";
 import SigninPage from "./Pages/SigninPage.tsx";
 import SignupPage from "./Pages/SignUpPage.tsx";
+import ShippingAddressPage from "./Pages/ShippingAddressPage.tsx";
+import PaymentMethodPage from "./Pages/PaymentMethodPage.tsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -27,6 +29,8 @@ const router = createBrowserRouter(
       <Route path="cart" element={<CartPage />} />
       <Route path="signin" element={<SigninPage />} />
       <Route path="signup" element={<SignupPage />} />
+      <Route path="*" element={<ShippingAddressPage />} />
+      <Route path="payment" element={<PaymentMethodPage />} />
     </Route>
   )
 );
